@@ -1,3 +1,11 @@
 .container {
     margin-top: 5rem;
 }
+
+body {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0,0,255,0.5)),
+        url('https://image.cnbcfm.com/api/v1/image/105427596-1535741028476gettyimages-1025530736.jpeg?v=1535741078');
+    background-size: 1070px 726px;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
