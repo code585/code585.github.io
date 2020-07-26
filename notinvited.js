@@ -23,7 +23,7 @@ $(() => {
     
     function submitToAPI(e) {
         e.preventDefault();
-        var URL = "https://deb6qwqp0j.execute-api.us-east-2.amazonaws.com/default/emailhim";
+        const URL = "https://gajpqtdg5a.execute-api.us-east-1.amazonaws.com/default/emailhim";
         /*
              var Namere = /[A-Za-z]{1}[A-Za-z]/;
              if (!Namere.test($("#name-input").val())) {
@@ -61,7 +61,7 @@ $(() => {
           type: "POST",
           url : URL,
           dataType: "json",
-          crossDomain: "true",
+          crossDomain: true,
           contentType: "application/json; charset=utf-8",
           data: JSON.stringify(data),
  
