@@ -17,44 +17,20 @@ $(() => {
         if (donate) {
             submitToAPI(e);
         } else {
-            $("#donate").hide().fadeIn();
+            $("#donate").fadeOut().fadeIn().fadeOut().fadeIn();
         }
     })
     
     function submitToAPI(e) {
         e.preventDefault();
-        const URL = "https://gajpqtdg5a.execute-api.us-east-1.amazonaws.com/default/emailhim";
-        /*
-             var Namere = /[A-Za-z]{1}[A-Za-z]/;
-             if (!Namere.test($("#name-input").val())) {
-                          alert ("Name can not less than 2 char");
-                 return;
-             }
-             var mobilere = /[0-9]{10}/;
-             if (!mobilere.test($("#phone-input").val())) {
-                 alert ("Please enter valid mobile number");
-                 return;
-             }
-             if ($("#email-input").val()=="") {
-                 alert ("Please enter your email id");
-                 return;
-             }
- 
-             var reeamil = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,6})?$/;
-             if (!reeamil.test($("#email-input").val())) {
-                 alert ("Please enter valid email address");
-                 return;
-             }
-        */
+        const URL = "https://w64tgkz27g.execute-api.us-east-1.amazonaws.com/v1/emailhim";
+
         var name = $("#name-input").val();
-        var phone = $("#phone-input").val();
         var email = $("#email-input").val();
-        var desc = $("#description-input").val();
+
         var data = {
-           name : "Test",
-           phone : "555-555-5555",
-           email : "test@me.com",
-           desc : "testing"
+           name : name,
+           email : email,
          };
  
         $.ajax({
@@ -74,6 +50,19 @@ $(() => {
           error: function () {
             // show an error message
             console.log("UnSuccessful");
+            $('#letter .card-header').html("Something went wrong (Maybe Russian Interference), The president did not get your letter.")
           }});
       }
+
+      function validateEmail(email) {
+        //From Angular
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    
+    function validateName(name) {
+        //https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+        const re = /^[a-z ,.'-]+$/i;
+        return re.test(name);
+    }
 });
