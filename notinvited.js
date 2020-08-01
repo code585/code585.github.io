@@ -19,18 +19,20 @@ $(() => {
         } else {
             $("#donate").fadeOut().fadeIn().fadeOut().fadeIn();
         }
-    })
+    });
     
     function submitToAPI(e) {
         e.preventDefault();
         const URL = "https://w64tgkz27g.execute-api.us-east-1.amazonaws.com/v1/emailhim";
 
-        var name = $("#name-input").val();
-        var email = $("#email-input").val();
+        let name = $("#name").val();
+        let email = $("#email").val();
+        let recaptcha = "test";
 
-        var data = {
+        let data = {
            name : name,
            email : email,
+           recaptcha: recaptcha
          };
  
         $.ajax({
