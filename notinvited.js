@@ -19,7 +19,7 @@ $(() => {
         } else {
             $("#donate").fadeOut().fadeIn().fadeOut().fadeIn();
         }
-    })
+    });
     
     function submitToAPI(e) {
         e.preventDefault();
