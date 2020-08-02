@@ -33,7 +33,6 @@ $(() => {
         if (donate) {
             let name = $("input#name").val();
             let email = $("input#email").val();
-            console.log("Donate!");
             if((validateName(name) && email.trim().length == 0) || (validateName(name) && validateEmail(email))) {
                 e.preventDefault();
                 console.log("Checking recaptcha");
@@ -86,13 +85,15 @@ function submitToAPI(token) {
         
         success: () => {
             // clear form and show a success message
-            console.log("Successful");
-            $("#letter .card-header").html("Your letter is its way!");
+            $("#letter .card-header").html("Your letter is on its way!");
         },
-        error: () => {
+        error: (e) => {
             // show an error message
-            console.log("UnSuccessful");
-            $('#letter .card-header').html("Something went wrong (Maybe Russian Interference), The president did not get your letter.")
+            if(e.status === 200) {
+                console.log(e.responseText);
+            } else {
+                $('#letter .card-header').html("Something went wrong (Maybe Russian Interference), The president did not get your letter.");
+            }
         }
     });
 }
