@@ -35,7 +35,6 @@ $(() => {
             let email = $("input#email").val();
             if((validateName(name) && email.trim().length == 0) || (validateName(name) && validateEmail(email))) {
                 e.preventDefault();
-                console.log("Checking recaptcha");
                 grecaptcha.execute();
             }
         } 
