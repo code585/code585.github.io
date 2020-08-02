@@ -33,10 +33,8 @@ $(() => {
         if (donate) {
             let name = $("input#name").val();
             let email = $("input#email").val();
-            console.log("Donate!");
             if((validateName(name) && email.trim().length == 0) || (validateName(name) && validateEmail(email))) {
                 e.preventDefault();
-                console.log("Checking recaptcha");
                 grecaptcha.execute();
             }
         } 
@@ -45,43 +43,6 @@ $(() => {
             $("#donate").fadeOut().fadeIn().fadeOut().fadeIn();
         }
     });
-
-    /*
-     * Callback for recaptcha, g-recaptcha
-     */
-    
-    function submitToAPI(token) {
-        const URL = "https://w64tgkz27g.execute-api.us-east-1.amazonaws.com/v1/emailhim";
-
-        let name = $("input#name").val();
-        let email = $("input#email").val();
-
-        let data = {
-           name : name,
-           email : email,
-           recaptcha: token
-         };
- 
-        $.ajax({
-          type: "POST",
-          url : URL,
-          dataType: "json",
-          crossDomain: true,
-          contentType: "application/json; charset=utf-8",
-          data: JSON.stringify(data),
- 
-          
-          success: () => {
-            // clear form and show a success message
-            console.log("Successful");
-            $("#letter .card-header").html("Your letter is its way!");
-          },
-          error: () => {
-            // show an error message
-            console.log("UnSuccessful");
-            $('#letter .card-header').html("Something went wrong (Maybe Russian Interference), The president did not get your letter.")
-          }});
-      }
 
     function validateEmail(email) {
         //From Angular
@@ -95,3 +56,43 @@ $(() => {
         return re.test(name);
     }
 });
+
+/*
+ * Callback for recaptcha, g-recaptcha
+ */
+
+function submitToAPI(token) {
+    const URL = "https://w64tgkz27g.execute-api.us-east-1.amazonaws.com/v1/emailhim";
+
+    let name = $("input#name").val();
+    let email = $("input#email").val();
+
+    let data = {
+        name : name,
+        email : email,
+        recaptcha: token
+        };
+
+    $.ajax({
+        type: "POST",
+        url : URL,
+        dataType: "json",
+        crossDomain: true,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(data),
+
+        
+        success: () => {
+            // clear form and show a success message
+            $("#letter .card-header").html("Your letter is on its way!");
+        },
+        error: (e) => {
+            // show an error message
+            if(e.status === 200) {
+                console.log(e.responseText);
+            } else {
+                $('#letter .card-header').html("Something went wrong (Maybe Russian Interference), The president did not get your letter.");
+            }
+        }
+    });
+}
