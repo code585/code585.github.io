@@ -85,13 +85,15 @@ function submitToAPI(token) {
         success: () => {
             // clear form and show a success message
             $("#letter .card-header").html("Your letter is on its way!");
+
         },
         error: (e) => {
             // show an error message
             if(e.status === 200) {
-                console.log(e.responseText);
+                $("#letter .card-header").html(e.responseText);
             } else {
                 $('#letter .card-header').html("Something went wrong (Maybe Russian Interference), The president did not get your letter.");
+                grecaptcha.reset();
             }
         }
     });
